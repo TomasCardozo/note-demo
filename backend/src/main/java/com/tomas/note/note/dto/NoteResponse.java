@@ -1,4 +1,4 @@
-package com.tomas.note.note.domain;
+package com.tomas.note.note.dto;
 
 import com.tomas.note.note.domain.Note;
 import java.time.Instant;

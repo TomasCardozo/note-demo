@@ -1,4 +1,4 @@
-package com.tomas.note.note.domain;
+package com.tomas.note.note.repository;
 
 import com.tomas.note.note.domain.Note;
 import org.springframework.data.jpa.repository.JpaRepository;
