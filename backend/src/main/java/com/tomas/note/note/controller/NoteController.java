@@ -11,6 +11,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.net.URI;
+import java.util.Arrays;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/notes")
@@ -40,8 +43,20 @@ public class NoteController {
     }
 
     @GetMapping
-    public Page<NoteResponse> list(@RequestParam(defaultValue = "false") boolean archived, Pageable pageable) {
-        return noteService.list(archived, pageable).map(NoteResponse::from);
+    public Page<NoteResponse> list(
+            @RequestParam(required = false) Boolean archived,
+            @RequestParam(required = false) String categoryIds,
+            @RequestParam(required = false) String match,
+            Pageable pageable) {
+        Set<Long> ids = null;
+        if (categoryIds != null && !categoryIds.isBlank()) {
+            ids = Arrays.stream(categoryIds.split(","))
+                    .map(String::trim)
+                    .filter(s -> !s.isEmpty())
+                    .map(Long::valueOf)
+                    .collect(Collectors.toSet());
+        }
+        return noteService.list(archived, ids, match, pageable).map(NoteResponse::from);
     }
 
     @GetMapping("/{id}")
