@@ -1,9 +1,13 @@
 package com.tomas.note.note.domain;
 
+import com.tomas.note.category.domain.Category;
+
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import java.time.Instant;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "notes")
@@ -77,6 +81,19 @@ public class Note {
 
     public Instant getUpdatedAt() {
         return updatedAt;
+    }
+
+    @ManyToMany
+    @JoinTable(
+            name = "note_category",
+            joinColumns = @JoinColumn(name = "note_id"),
+            inverseJoinColumns = @JoinColumn(name = "category_id")
+    )
+
+    private Set<Category> categories = new HashSet<>();
+
+    public Set<Category> getCategories() {
+        return categories;
     }
 
 }

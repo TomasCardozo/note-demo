@@ -2,6 +2,7 @@ package com.tomas.note.note.controller;
 
 import com.tomas.note.note.dto.NoteRequest;
 import com.tomas.note.note.dto.NoteResponse;
+import com.tomas.note.note.dto.NoteCategoriesRequest;
 import com.tomas.note.note.service.NoteService;
 
 import jakarta.validation.Valid;
@@ -28,6 +29,16 @@ public class NoteController {
                 .body(NoteResponse.from(create));
     }
 
+    @PostMapping("/{id}/categories/{categoryId}")
+    public NoteResponse addCategory(@PathVariable Long id, @PathVariable Long categoryId) {
+        return NoteResponse.from(noteService.addCategory(id, categoryId));
+    }
+
+    @PostMapping("/{id}/categories")
+    public NoteResponse addCategories(@PathVariable Long id, @Valid @RequestBody NoteCategoriesRequest noteCategoriesRequest) {
+        return NoteResponse.from(noteService.addCategories(id, noteCategoriesRequest.getCategoryIds()));
+    }
+
     @GetMapping
     public Page<NoteResponse> list(@RequestParam(defaultValue = "false") boolean archived, Pageable pageable) {
         return noteService.list(archived, pageable).map(NoteResponse::from);
@@ -47,6 +58,11 @@ public class NoteController {
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         noteService.delete(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @DeleteMapping("/{id}/categories/{categoryId}")
+    public NoteResponse removeCategory(@PathVariable Long id, @PathVariable Long categoryId) {
+        return NoteResponse.from(noteService.removeCategory(id, categoryId));
     }
 
     @PatchMapping("/{id}/archive")
