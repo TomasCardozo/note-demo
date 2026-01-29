@@ -24,6 +24,7 @@ README.md
 - Spring Boot 3
 - Spring Web
 - Spring Data JPA
+- Spring Security
 - MySQL 8
 - Maven
 
@@ -31,6 +32,8 @@ README.md
 
 - JavaScript
 - React
+- Vite
+- React Router
 - Axios
 - Bootstrap 5
 
@@ -63,7 +66,7 @@ spring.jpa.hibernate.ddl-auto=update
 
 ## START THE APPLICATION
 
-Start the MySQL DB using docker and run the Spring Boot backend, from the root of the repository:
+Start the MySQL DB using docker, run Spring Boot backend and run React+Vite frontend , from the root of the repository:
 
 ```bash
 ./run.sh
@@ -80,6 +83,29 @@ Frontend UI will be at:
 ```
 http:localhost:5173
 ```
+
+---
+
+## Authentication & Security
+
+The backend API is fully protected using JWT authentication. The Test-User is automatically created when the backend starts.
+
+- Username: admin
+- Password: admin123
+
+---
+
+## Frontend Authentication Behavior
+
+- If the user is not logged in, the app redirects to `/login`
+- After a successful login:
+  - the JWT is stored in `localStorage`
+  - Axios automatically attaches the token to every request
+- If the backend returns **401 Unauthorized**:
+  - the token is removed
+  - the user is redirected back to the login page
+
+---
 
 ## Features
 
@@ -98,5 +124,5 @@ http:localhost:5173
 ## Autor
 
 - Tomas Gabriel Cardozo
-  System Engineering Student
-  Junior Software Developer
+- System Engineering Student
+- Junior Software Developer
