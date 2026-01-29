@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { logout } from "../api/authApi";
 import NoteForm from "../components/NoteForm";
 import NoteList from "../components/NoteList";
 import { listCategories } from "../api/categoryApi";
@@ -141,9 +143,16 @@ export default function NotesPage() {
     }
   }
 
+  const navigate = useNavigate();
+  function handleLogout() {
+    logout();
+    navigate("/login", { replace: true });
+  }
+
   return (
     <div className="container py-4">
       <h1 className="mb-4">Notes</h1>
+      <button onClick={handleLogout}>Logout</button>
 
       <div className="row g-4 mb-4">
         <div className="col-12 col-lg-8">

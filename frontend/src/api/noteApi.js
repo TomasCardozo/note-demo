@@ -1,8 +1,4 @@
-import axios from "axios";
-
-const api = axios.create({
-  baseURL: "http://localhost:8080/api",
-});
+import { api } from "./axios";
 
 export const listNotes = ({ archived, categoryIds, page = 0, size = 10 }) => {
   const params = { page, size };
