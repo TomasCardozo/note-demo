@@ -30,13 +30,13 @@ create_category "Personal"
 create_category "Important"
 
 
-cd..
+cd ..
 cd frontend
 npm install
 npm run dev &
 FRONTEND_PID=$!
 
-cd..
+cd ..
 
 cleanup() {
   kill $FRONTEND_PID $BACKEND_PID 2>/dev/null || true
