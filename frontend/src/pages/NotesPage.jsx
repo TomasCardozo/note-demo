@@ -151,8 +151,15 @@ export default function NotesPage() {
 
   return (
     <div className="container py-4">
-      <h1 className="mb-4">Notes</h1>
-      <button onClick={handleLogout}>Logout</button>
+      <div className="d-flex justify-content-between align-items-center mb-3">
+        <h1 className="mb-0">Notes</h1>
+        <button
+          onClick={handleLogout}
+          className="btn btn-outline-danger btn-sm"
+        >
+          Logout
+        </button>
+      </div>
 
       <div className="row g-4 mb-4">
         <div className="col-12 col-lg-8">
