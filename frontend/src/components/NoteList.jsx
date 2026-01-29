@@ -12,18 +12,19 @@ export default function NoteList({
     return <p>No notes available.</p>;
   }
   return (
-    <ul>
+    <div className="row g-4">
       {notes.map((note) => (
-        <NoteItem
-          key={note.id}
-          note={note}
-          categories={categories}
-          onEdit={onEdit}
-          onDelete={onDelete}
-          onArchiveToggle={onArchiveToggle}
-          onCategoryToggle={onCategoryToggle}
-        />
+        <div className="col-12 col-md-6 col-lg-4" key={note.id}>
+          <NoteItem
+            note={note}
+            categories={categories}
+            onEdit={onEdit}
+            onDelete={onDelete}
+            onArchiveToggle={onArchiveToggle}
+            onCategoryToggle={onCategoryToggle}
+          />
+        </div>
       ))}
-    </ul>
+    </div>
   );
 }

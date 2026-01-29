@@ -142,66 +142,81 @@ export default function NotesPage() {
   }
 
   return (
-    <div style={{ padding: 20, color: "white" }}>
-      <h1>Notes</h1>
+    <div className="container py-4">
+      <h1 className="mb-4">Notes</h1>
 
-      <div style={{ marginBottom: 20 }}>
-        <button onClick={() => setTab("active")} disabled={tab === "active"}>
-          Active Notes
-        </button>
-        <button
-          onClick={() => setTab("archived")}
-          disabled={tab === "archived"}
-        >
-          Archived Notes
-        </button>
-      </div>
-
-      <div style={{ marginBottom: 20 }}>
-        <div>
-          <h3>Categories</h3>
+      <div className="row g-4 mb-4">
+        <div className="col-12 col-lg-8">
+          <NoteForm
+            key={editingNote?.id ?? "new"}
+            value={editingNote}
+            onSubmit={editingNote ? handleUpdate : handleCreate}
+            onCancel={() => setEditingNote(null)}
+          />
         </div>
 
-        {categories.length === 0 ? (
-          <p>No categories available.</p>
-        ) : (
-          <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
-            {categories.map((category) => (
-              <label
-                key={category.id}
-                style={{ display: "flex", gap: 8, alignItems: "center" }}
+        <div className="col-12 col-lg-4">
+          <div className="mb-3">
+            <div className="btn-group w-100" role="group">
+              <button
+                className={`btn btn-${tab === "active" ? "success" : "outline-secondary"}`}
+                onClick={() => setTab("active")}
               >
-                <input
-                  type="checkbox"
-                  checked={
-                    Array.isArray(selectedCategoryIds) &&
-                    selectedCategoryIds.includes(category.id)
-                  }
-                  onChange={(e) => {
-                    setSelectedCategoryIds((prev) => {
-                      const safePrev = Array.isArray(prev) ? prev : [];
-                      return e.target.checked
-                        ? [...safePrev, category.id]
-                        : safePrev.filter((id) => id !== category.id);
-                    });
-                  }}
-                />
-                <span>{category.name}</span>
-              </label>
-            ))}
+                Active Notes
+              </button>
+              <button
+                className={`btn btn-${tab === "archived" ? "success" : "outline-secondary"}`}
+                onClick={() => setTab("archived")}
+              >
+                Archived Notes
+              </button>
+            </div>
           </div>
-        )}
+
+          {/* <div className="col-12 col-md-9"> */}
+          <div className="card card-body mb-3">
+            <h5 className="mb-3">Categories</h5>
+
+            {categories.length === 0 ? (
+              <p className="mb-0">No categories available.</p>
+            ) : (
+              <div className="d-flex flex-wrap gap-3">
+                {categories.map((category) => (
+                  <div className="form-check" key={category.id}>
+                    <input
+                      className="form-check-input"
+                      type="checkbox"
+                      id={`cat-${category.id}`}
+                      checked={
+                        Array.isArray(selectedCategoryIds) &&
+                        selectedCategoryIds.includes(category.id)
+                      }
+                      onChange={(e) => {
+                        setSelectedCategoryIds((prev) => {
+                          const safePrev = Array.isArray(prev) ? prev : [];
+                          return e.target.checked
+                            ? [...safePrev, category.id]
+                            : safePrev.filter((id) => id !== category.id);
+                        });
+                      }}
+                    />
+                    <label
+                      className="form-check-label"
+                      htmlFor={`cat-${category.id}`}
+                    >
+                      {category.name}
+                    </label>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+          {/* </div> */}
+        </div>
       </div>
 
       {error && <p style={{ color: "red" }}>{error}</p>}
       {loading && <p>Loading...</p>}
-
-      <NoteForm
-        key={editingNote?.id ?? "new"}
-        value={editingNote}
-        onSubmit={editingNote ? handleUpdate : handleCreate}
-        onCancel={() => setEditingNote(null)}
-      />
 
       <NoteList
         notes={notes}

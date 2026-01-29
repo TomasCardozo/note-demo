@@ -28,30 +28,39 @@ export default function NoteForm({ value, onSubmit, onCancel }) {
   }
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      style={{ display: "grid", gap: 10, marginBottom: 18 }}
-    >
-      <input
-        name="title"
-        value={form.title}
-        onChange={handleChange}
-        placeholder="Title"
-      />
+    <form onSubmit={handleSubmit} className="card card-body mb-4">
+      <div className="mb-3">
+        <input
+          name="title"
+          value={form.title}
+          onChange={handleChange}
+          placeholder="Title"
+          className="form-control"
+        />
+      </div>
 
-      <textarea
-        name="content"
-        value={form.content}
-        onChange={handleChange}
-        rows={5}
-        placeholder="Content"
-      />
+      <div className="mb-3">
+        <textarea
+          name="content"
+          value={form.content}
+          onChange={handleChange}
+          rows={5}
+          placeholder="Content"
+          className="form-control"
+        />
+      </div>
 
-      <div style={{ display: "flex", gap: 10 }}>
-        <button type="submit">{isEditing ? "Save Changes" : "Create"}</button>
+      <div className="d-flex gap-2">
+        <button className="btn btn-success" type="submit">
+          {isEditing ? "Save Changes" : "Create"}
+        </button>
 
         {isEditing && (
-          <button type="button" onClick={onCancel}>
+          <button
+            className="btn btn-secondary"
+            type="button"
+            onClick={onCancel}
+          >
             Cancel
           </button>
         )}
