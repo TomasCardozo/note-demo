@@ -1,6 +1,10 @@
-# Full Stack Implementation Exercise - Note Application
+# Notes App – Personal Demo Repository
 
-This repository contains a full-stack Notes application built as part of a technical exercise.
+This repository contains a **personal clone** of the Notes application developed for the **Ensolvers Full Stack Implementation Exercise**.
+
+**Important note**  
+The official evaluation repository is owned by Ensolvers.  
+This repository exists only as a **personal demo copy**, intended to show that the application is **deployment-ready**, even though it has not been deployed yet.
 
 ---
 
@@ -123,6 +127,7 @@ The backend API is fully protected using JWT authentication. The Test-User is au
 
 ## Autor
 
-- Tomas Gabriel Cardozo
+**Tomas Gabriel Cardozo**
+
 - System Engineering Student
 - Junior Software Developer
